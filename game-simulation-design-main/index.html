@@ -1,0 +1,129 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Game Project Title Goes Here</title>
+    <link rel="stylesheet"
+         href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+    <style>
+        body {
+            font-family: 'Press Start 2P', serif;
+            font-size: 24px;
+        }
+    </style>
+    
+
+
+</head>
+<body>
+    <canvas id="gameWorld" width="1600" height="700" style="background: white; border: 1px solid black" tabindex="0" autofocus></canvas>
+    Debug <input type="checkbox" id="debug" >  <input type="checkbox" id="mute"> Mute <input type="range" id="volume" min="0" max="1" value="0.5" step="0.05"> Volume
+
+
+
+
+    <script type="text/javascript" src="./assetmanager.js" defer></script>
+    <script type="text/javascript" src="./timer.js" defer></script>
+    <script type="text/javascript" src="./gameengine.js" defer></script>
+    <script type="text/javascript" src="./util.js" defer></script>
+    <script type="text/javascript" src="./main.js" defer></script>
+    <script type="text/javascript" src="./scenemanager.js" defer></script>
+    <script type="text/javascript" src="./character.js" defer></script>
+    <script type="text/javascript" src="./animator.js" defer></script>
+    <script type="text/javascript" src="./boundingBox.js" defer></script>
+    <script type="text/javascript" src="./healthbar.js" defer></script>
+    <script type="text/javascript" src="./dayNightCycle.js" defer></script>
+
+    <!-- NPC Entity -->
+    <script type="text/javascript" src="./npcEntity/slime.js" defer></script>
+    <script type="text/javascript" src="./pet/dog.js" defer></script>
+    <script type="text/javascript" src="./npcEntity/wizard.js" defer></script>
+    <script type="text/javascript" src="./npcEntity/boar.js" defer></script>
+    <script type="text/javascript" src="./npcEntity/goblin.js" defer></script>
+    <script type="text/javascript" src="./npcEntity/greengoblin.js" defer></script>
+    <script type="text/javascript" src="./npcEntity/fireworm.js" defer></script>
+    <script type="text/javascript" src="./npcEntity/plantKillerSkill.js" defer></script>
+    <script type="text/javascript" src="./npcEntity/boarSkill.js" defer></script>
+
+
+
+
+    <!-- enviromentEntity -->
+    <script type="text/javascript" src="./enviromentEntity/farmLandNormalGrass.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/farmLandBigTree.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/farmLandCutTree.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/farmLandDeadTree.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/farmLandSproutTree.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/farmLandSeedGrass.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/farmLandMediumGrass.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/farmLandThickGrass.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/farmLandDirtGround.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/normalBossesHome.js" defer></script>
+
+    <script type="text/javascript" src="./enviromentEntity/invisibleLakeBloker.js" defer></script>
+
+    <script type="text/javascript" src="./enviromentEntity/obelisk.js" defer></script>
+
+    <script type="text/javascript" src="./enviromentEntity/invisibleFenceBlocker.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/invisibleMonsterBlocker.js" defer></script>
+
+
+
+
+
+
+    <script type="text/javascript" src="./enviromentEntity/farmLandHouse.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/farmLandBigHouse.js" defer></script>
+    <script type="text/javascript" src="./bee.js"></script>
+
+
+
+
+
+    <script type="text/javascript" src="./enviromentEntity/farmLandHouse.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/farmLandBigHouse.js" defer></script>
+
+    <script type="text/javascript" src="./enviromentEntity/farmLandLake.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/farmLandAnimal.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/farmLandStatic.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/farmLandGiantHouse.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/forestRedTree.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/forestSmallPlant.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/farmLandFencedHouse.js" defer></script>
+
+
+
+    <!-- FarmingEntity Import -->
+    <script type="text/javascript" src="./farmEnity/horizontalSoil.js" defer></script>
+    <script type="text/javascript" src="./farmEnity/ricePlant.js" defer></script>
+    <script type="text/javascript" src="./farmEnity/cornPlant.js" defer></script>
+    <script type="text/javascript" src="./farmEnity/strawberryPlant.js" defer></script>
+
+    
+
+    <script type="text/javascript" src="./nextDayCutScene.js" defer></script>
+    <script type="text/javascript" src="./weaponSkillAndEffect/smoke.js" defer></script>
+
+    <script type="text/javascript" src="./weaponSkillAndEffect/fireball.js" defer></script>
+
+    <script type="text/javascript" src="./enviromentEntity/wizardspawn.js" ></script>
+
+
+    <script type="text/javascript" src=".//weaponSkillAndEffect/shuriken.js" defer></script>
+    <script type="text/javascript" src="./enviromentEntity/portal.js" defer></script>
+    <script type="text/javascript" src="./start.js" defer></script>
+    <script type="text/javascript" src="./npcEntity/boss.js" defer></script>
+    <script type="text/javascript" src="./npcEntity/skeleton.js" defer></script>
+    <script type="text/javascript" src="./npcEntity/demonslime.js" defer></script>
+    <script type="text/javascript" src=".//weaponSkillAndEffect/slash.js" defer></script>
+    <script type="text/javascript" src="./ScreenGame/loadscreen.js" defer></script>
+    <script type="text/javascript" src="./ScreenGame/start.js" defer></script>
+
+    <script type="text/javascript" src="./snowmap.js"></script>
+    <script type="text/javascript" src="./skele.js"></script>
+    <script type="text/javascript" src="./tornado.js"></script>
+    <script type="text/javascript" src="./snowthrow.js"></script>
+    <script type="text/javascript" src="./guardian.js"></script>
+</body>
+</html>
