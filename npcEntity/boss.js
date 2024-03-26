@@ -9,8 +9,8 @@ class Boss {
       this.characterTouchBoss= false;
       this.summonedGoblinFlag = false
       this.healthbar= new HealthBar(this);
-      this.hitpoints = 100;
-      this.maxhitpoints = 100;
+      this.hitpoints = 3600;
+      this.maxhitpoints = 3600;
       this.bossDeath = false;
       this.firstsummon = true;
       this.visualRadius = 200;
@@ -281,7 +281,7 @@ class Boss {
          //   this.removeFromWorld = true;
            
         //  }
-          if (ent instanceof MainCharacter && collide(this, ent)) {
+          if (ent instanceof CharacterClone && collide(this, ent)||ent instanceof MainCharacter && collide(this, ent)) {
       //     console.log("facelft " + this.faceleft)
                 
          
@@ -330,13 +330,13 @@ class Boss {
      }
 
     
-if(this.hitpoints<100 &&this.hitpoints>80){
+if(this.hitpoints<this.maxhitpoints &&this.hitpoints>this.maxhitpoints-160){
     
   this.elapsedTime4=0;
    this.visualRadius =500;
  }
 
- if(this.hitpoints<40 && this.hitpoints>15){
+ if(this.hitpoints<this.maxhitpoints/2 && this.hitpoints>15){
   if( this.cooldown > 0.5 && this.time<3){
      // console.log("THIS COUNTER " + this.counter)
       this.time++;
@@ -355,7 +355,7 @@ if(this.hitpoints<100 &&this.hitpoints>80){
  }
  
 //console.log("THIS ELAPSED TIME " + this.elapsedTime4)
-      if(this.hitpoints<=50&& this.onetime ==false){
+      if(this.hitpoints<=this.maxhitpoints/2&& this.onetime ==false){
           
          this.elapsedTime4 =0;
          this.elapsedTime3 =0;
@@ -372,7 +372,7 @@ if(this.hitpoints<100 &&this.hitpoints>80){
          
       }
     //tp skill
-      if(this.hitpoints<80&& this.hitpoints>70 && this.elapsedTime4<1){
+      if(this.hitpoints<this.maxhitpoints-290&& this.hitpoints>this.maxhitpoints-560 && this.elapsedTime4<1){
          // let prev = this.state
          this.state = -1;
           setTimeout(() => {

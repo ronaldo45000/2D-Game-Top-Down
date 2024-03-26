@@ -47,46 +47,28 @@ class Shuriken {
         this.y += this.velocity.y * this.game.clockTick;
 
          for (var i = 0; i < this.game.entities.length; i++) {
-             var ent = this.game.entities[i];
-        //     if ( (ent instanceof Wizard || ent instanceof Wizard) && collide(this, ent)) {
-        //         var damage = 10 + randomInt(6);
-        //         ent.hitpoints -= damage;
-        // //         // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
-        //   this.removeFromWorld = true;
-        //      }
-             if ( (ent instanceof Boss) && collide(this, ent)) {
-                var damage = 10 + randomInt(6);
-                ent.hitpoints -= damage;
-        //         // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
-          this.removeFromWorld = true;
-             }
-             if ( (ent instanceof Slime) && collide(this, ent)) {
-                var damage = 10 + randomInt(6);
-                ent.hitpoints -= damage;
-        //         // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
-          this.removeFromWorld = true;
-             }
-             if ( (ent instanceof Wizard|| ent instanceof Wizard2|| ent instanceof Skele || ent instanceof Guardian ||ent instanceof Skeleton || ent instanceof DemonSlime) && collide(this, ent)) {
-                var damage = 10 + randomInt(6);
-                ent.hitpoints -= damage;
-        //         // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
-          this.removeFromWorld = true;
-             }
-             if ( (ent instanceof Boar) && collide(this, ent)) {
-                var damage = 10 + randomInt(6);
-                ent.hitpoints -= damage;
-        //         // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
-          this.removeFromWorld = true;
-             }
-        // //     // if (!this.towerTeam && ent instanceof Tower && collide(this, ent)) {
-        // //     //     var damage = 7 + randomInt(4);
-        // //     //     ent.hitpoints -= damage;
-        // //     //    // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
-        // //     //   this.removeFromWorld = true;
-        // //     // }
-          }
+             var entity = this.game.entities[i];
+       
+             if ( (entity instanceof Slime || entity instanceof Boar || entity instanceof GreenGoblin ||entity instanceof BoarSkill|| 
+                entity instanceof Wizard|| entity instanceof Wizard2|| entity instanceof Wizard3|| entity instanceof Skele || entity instanceof Guardian ||
+                entity instanceof Skeleton || entity instanceof DemonSlime||entity instanceof Boss || entity instanceof Mantis) && collide(this, entity)) {
+                var damage = this.game.character.baseDamage + randomInt(6);
+                entity.hitpoints -= damage;
+                this.game.addEntity(new Score(this.game, entity.x - this.game.camera.x, entity.y- this.game.camera.y, damage));
+                if(entity instanceof Boss){
+                    if(entity.hitpoints<=0){
+                    }
+                }
 
-        // this.facing = getFacing(this.velocity);
+                   else{
+                    if(entity.hitpoints<=0){
+                        entity.removeFromWorld = true;
+                    }
+                    }
+                this.removeFromWorld = true;
+             }
+  
+          }
 
     
     };

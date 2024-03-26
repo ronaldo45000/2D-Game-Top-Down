@@ -49,8 +49,10 @@ class NextDayCutScene{
 
         ctx.font = '50px "Press Start 2P"';
         ctx.fillStyle = "white";
-        ctx.fillText( "Day  "+ (PARAMS.DAYCOUNTER + 1), midpointX - midpointX*0.15 ,midpointY- midpointY*0.15);
-
+        if(!(this.game.camera.dayNightManager.time >= 0 && this.game.camera.dayNightManager.time <= 4 ))
+             ctx.fillText( "Day  "+ (PARAMS.DAYCOUNTER + 1), midpointX - midpointX*0.15 ,midpointY- midpointY*0.15);
+        else 
+            ctx.fillText( "Day  "+ (PARAMS.DAYCOUNTER), midpointX - midpointX*0.15 ,midpointY- midpointY*0.15);
     }
 
 }

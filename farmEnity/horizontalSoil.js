@@ -21,13 +21,13 @@ class HorizontalSoil{
         this.radius = 10;
         this.visualRadius = 50;
 
-        this.plants.push(new StrawberryPlant(this.game,this.x + (92/3)*0,this.y, PARAMS.DAYCOUNTER));
-        this.plants.push(new RicePlant(this.game,this.x + (92/3)*1,this.y, PARAMS.DAYCOUNTER));
-        this.plants.push(new CornPlant(this.game,this.x + (92/3)*2,this.y, PARAMS.DAYCOUNTER));
-        //For Prototype Showcase.
-        this.plants.forEach(plant =>{
-            plant.startDay = -4;
-        });
+        // this.plants.push(new StrawberryPlant(this.game,this.x + (92/3)*0,this.y, PARAMS.DAYCOUNTER));
+        // this.plants.push(new RicePlant(this.game,this.x + (92/3)*1,this.y, PARAMS.DAYCOUNTER));
+        // this.plants.push(new CornPlant(this.game,this.x + (92/3)*2,this.y, PARAMS.DAYCOUNTER));
+        // //For Prototype Showcase.
+        // this.plants.forEach(plant =>{
+        //     plant.startDay = -4;
+        // });
         // spritesheet
          this.spritesheet = ASSET_MANAGER.getAsset("./sprites/farmland.png");
        //  this.removeFromWorld = false;
@@ -126,12 +126,24 @@ class HorizontalSoil{
                     //console.log(this.plants[clickedPart].state);
                     if(this.plants[clickedPart] && this.plants[clickedPart].isHarvestable){
 
-                        if(this.plants[clickedPart] instanceof CornPlant ) 
-                            this.game.character.farmInventory[PLANTNAMES.CORN] += Math.floor((Math.floor(Math.random() * 3) + 2)*this.plants[clickedPart].getPercentOfCrop());
-                        else if(this.plants[clickedPart] instanceof StrawberryPlant ) 
-                            this.game.character.farmInventory[PLANTNAMES.STRAWBERRY] += Math.floor((Math.floor(Math.random() * 3) + 3)*this.plants[clickedPart].getPercentOfCrop());
-                        else if(this.plants[clickedPart] instanceof RicePlant)
-                            this.game.character.farmInventory[PLANTNAMES.RICE] += Math.floor((Math.floor(Math.random() * 3) + 4)*this.plants[clickedPart].getPercentOfCrop());
+                        if(this.plants[clickedPart] instanceof CornPlant ) {
+                            const num = Math.floor((Math.floor(Math.random() * 3) + 2)*this.plants[clickedPart].getPercentOfCrop())
+                            this.game.character.farmInventory[PLANTNAMES.CORN] += num;
+                            this.game.addEntity(new PlusPlant(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y, "+" + num + " Corn" ))
+
+                        }
+                        else if(this.plants[clickedPart] instanceof StrawberryPlant ) {
+                            const num = Math.floor((Math.floor(Math.random() * 3) + 3)*this.plants[clickedPart].getPercentOfCrop());
+                            this.game.character.farmInventory[PLANTNAMES.STRAWBERRY] += num;
+                            this.game.addEntity(new PlusPlant(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y, "+" + num + " Strawberry" ))
+
+
+                        }
+                        else if(this.plants[clickedPart] instanceof RicePlant){
+                            const num = Math.floor((Math.floor(Math.random() * 3) + 4)*this.plants[clickedPart].getPercentOfCrop());
+                            this.game.character.farmInventory[PLANTNAMES.RICE] += num;
+                            this.game.addEntity(new PlusPlant(this.game, this.x - this.game.camera.x, this.y- this.game.camera.y, "+" + num + " Rice" ))
+                        }
 
 
 

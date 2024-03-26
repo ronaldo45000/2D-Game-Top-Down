@@ -14,17 +14,19 @@ class SceneManager {
     //go to line 61, they are set to focus on the main charater.
     this.x = 0;
     this.y = 0;
-
+    this.notInCutScreen = true;
     this.spritesheetFarmLand = ASSET_MANAGER.getAsset("./sprites/farmland.png");
     this.dayNightManager = new DayNightCycle(this.game, 0);
-
+    this.inGame = false;
     this.countDeath = 0;
     this.notInGameYet = false;
     this.onetime =false;
     this.character = new MainCharacter(this.game, 800, 525);
-
+    this.InPortal = false;
     this.nextNextCutScene = false;
-
+    this.bed = new Bed(this.game, 550, 600, 300, 200 );
+    this.listOfQuests = [];
+    this.characterIndex ;
     this.listOfSlime = [];
 
     this.listOfTree = [];
@@ -90,25 +92,49 @@ class SceneManager {
 
     this.camp = new Campfire(this.game, 110, 110);
     this.game.addEntity(new Start(this.game));
-    
+    this.listOfMantis = [];
+
   
     //this.loadMap();
     this.elapsed = 0;
   }
+  loadQuests(){
+    this.listOfQuests = [];
+    this.listOfQuests.push(new FarmQuest(this.game));
+    this.listOfQuests.push(new KillBugQuest(this.game));
+    this.listOfQuests.push(new SlimeKills(this.game));
+    this.listOfQuests.push(new FishingQuest(this.game));
+    this.listOfQuests.push(new MantisKill(this.game));
+} 
+  loadMantis() {
+    this.listOfMantis.push(
+      new Mantis(this.game, 0, 1200, [{ x: 100, y: 1200 }]) 
+    );
+    this.listOfMantis.push(
+      new Mantis(this.game, 0, 300, [{ x: 100, y: 400 }]) 
+    );
+    this.listOfMantis.push(
+      new Mantis(this.game, 1700, 2000, [{ x: 1700, y: 2000 }]) 
+    );
+    this.listOfMantis.forEach(mantis =>{
+      this.game.addEntityAtIndex(this.normalBossesIndexEntity, mantis);
+    })
+  }
+
   loadSlime() {
     this.listOfSlime = [];
     this.listOfSlime.push(
       new Slime(this.game, 1050, 1250, [{ x: 1055, y: 555 }])
     );
     this.listOfSlime.push(
-      new Slime(this.game, 1300, 1200, [{ x: 1055, y: 555 }])
+      new Slime(this.game, 1300, 1200, [{ x: 1005, y: 555 }])
     );
 
     this.listOfSlime.push(
-      new Slime(this.game, 1200, 1200, [{ x: 1055, y: 555 }])
+      new Slime(this.game, 1200, 1200, [{ x: 1055, y: 505 }])
     );
     this.listOfSlime.push(
-      new Slime(this.game, 966, 1200, [{ x: 1055, y: 555 }])
+      new Slime(this.game, 966, 1200, [{ x: 1095, y: 585 }])
     );
 
     for (let i = 0; i < this.listOfSlime.length; i++) {
@@ -116,9 +142,10 @@ class SceneManager {
       this.game.addEntity(this.listOfSlime[i]);
     }
   }
-  loadMap() {
-    //Loading Bosses
+
+  loadNormalBoss(){
     this.listofNormallBosses = [];
+ 
     this.listofNormallBosses.push(
       new BoarSkill(this.game, 700, 1200, [{ x: 1720, y: 1322 }])
     );
@@ -128,6 +155,15 @@ class SceneManager {
     this.listofNormallBosses.push(
       new GreenGoblin(this.game, 600, 1200, [{ x: 1720, y: 1322 }])
     );
+  }
+
+  loadMap() {
+   
+   
+    //Loading Bosses
+    this.loadNormalBoss();
+    this.loadQuests();
+
     //Reset for new gameplay.
     this.listOfTrippleSoil = [];
 
@@ -511,7 +547,7 @@ class SceneManager {
 
     //  this.game.addEntity(this.gob);
     this.normalBossesIndexEntity = this.game.entities.length;
-    console.log(this.normalBossesIndexEntity);
+   // console.log(this.normalBossesIndexEntity);
     // this.normalBossesIndexEntity[0].removeFromWorld = false;
     // this.game.addEntity(this.normalBossesIndexEntity[0]);
 
@@ -530,12 +566,13 @@ class SceneManager {
      this.game.addEntity(new Portal(this.game, 1800, 3000 + 1100));
      this.game.addEntity(new Skele(this.game,530, 2650, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]));
      this.game.addEntity(new Guardian(this.game,1200, 3170, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]));
-    this.game.addEntity(new WizardSpawn(this.game, 110, 110));
+
+   
+     this.game.addEntity(new WizardSpawn(this.game, 110, 110));
     this.game.addEntity(new WizardSpawn2(this.game, 650, 110));
     this.game.addEntity(new WizardSpawn2(this.game, 110, 110));
     this.game.addEntity(new Campfire(this.game, 110, 110));
     this.game.addEntity(new Campfire(this.game, 650, 110));
-    this.loadSlime();
 
     this.game.addEntity(
       new Wizard2(this.game, 950, 2050, [
@@ -546,7 +583,7 @@ class SceneManager {
       ])
     );
     this.game.addEntity(
-      new Wizard2(this.game, 450, 2050, [
+      new Wizard3(this.game, 320, 2050, [
         { x: randomInt(3800), y: randomInt(3800) },
         { x: randomInt(3800), y: randomInt(3800) },
         { x: randomInt(3800), y: randomInt(3800) },
@@ -565,17 +602,33 @@ class SceneManager {
         { x: 0, y: 0 },
       ])
     );
+    this.game.addEntity(new myNPC(this.game,400, 1030, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]));
+
     ////////////////////////
     //DO NOT BLOCK THE CHARACTER
     /////////////////////////////////////
+    this.characterIndex = this.game.entities.length;
     this.game.addEntity(this.character);
     //////////////////////////////////////
     this.game.addEntity(this.dog);
     //  this.dog.removeFromWorld = false;
     // BLOCK THE CHARACTER
 
-    //House
-
+    //Normal Boss House Blocking
+    this.listOfBuildingsBlOCKCharacter.push(
+      new InvisibleFenceBlocker(this.game, 1344, 925, 20, 250)
+    );
+   
+    this.listOfBuildingsBlOCKCharacter.push(
+      new InvisibleFenceBlocker(this.game, 1344, 1400, 20, 350)
+    ); 
+    this.listOfBuildingsBlOCKCharacter.push(
+      new InvisibleFenceBlocker(this.game, 1344, 925 + 850, 656, 20)
+    ); 
+    //Normal Boss House Blocking
+    this.listOfBuildingsBlOCKCharacter.push(
+      new FarmLandFencedHouse(this.game, houseX + 180, houseY)
+    );
     this.listOfBuildingsBlOCKCharacter.push(
       new FarmLandFencedHouse(this.game, houseX + 180, houseY)
     );
@@ -611,6 +664,7 @@ class SceneManager {
       new InvisibleFenceBlocker(this.game, 64 * 22 + 40, 370, 500, 80)
     );
 
+
     //Final boss map bounds.
     //top
     this.listOfBuildingsBlOCKCharacter.push(
@@ -631,6 +685,8 @@ class SceneManager {
     this.listOfBuildingsBlOCKCharacter.push(
       new InvisibleMonsterBlocker(this.game, 300, 840, 55, 20)
     );
+   
+   
 
     for (let i = 0; i < this.listOfBuildingsBlOCKCharacter.length; i++) {
       this.game.addEntity(this.listOfBuildingsBlOCKCharacter[i]);
@@ -727,9 +783,18 @@ class SceneManager {
       this.game.addEntity(this.listOfTree[i]);
     }
     this.game.addEntity(new Boss(this.game,1600, 3700, [{ x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: randomInt(0), y: randomInt(0) }, { x: 0, y: 0 }]))
-    this.dayNightManager.time = 6;
+    this.dayNightManager.time = 12;
     this.dayNightManager.removeFromWorld = false;
+    if(this.listOfQuests.length > 0) this.game.addEntity(this.listOfQuests[0]);
+     //BED
+    this.game.addEntity(this.bed)
+    this.game.addEntity(new InvisibleSnowMapDoor(this.game, 800, 2200, 100, 20));
+
     this.game.addEntity(this.dayNightManager);
+
+    this.game.addEntity(new Letter(this.game,0,0));
+    
+
   }
   draw(ctx) {
    
@@ -740,7 +805,7 @@ class SceneManager {
 
       ctx.font = '15px "Press Start 2P"';
       // ctx.strokeStyle = "White";
-      if(!this.notInGameYet&&!this.onetime&&this.game.camera.countDeath!=3&&!this.endgame){
+      if(!this.notInGameYet&&!this.onetime&&this.game.camera.countDeath!=3&&!this.endgame&&this.notInCutScreen){
         if(this.character.y >= 2200 && this.character.y <= 3300 ) this.game.ctx.fillStyle = "Black";
         else  this.game.ctx.fillStyle = "White";
       this.game.ctx.fillText("Day  " + PARAMS.DAYCOUNTER, 10, 20);
@@ -875,7 +940,6 @@ class SceneManager {
       ctx.font = '8px "Press Start 2P"';
       
 
-      this.game.ctx.fillText(this.character.numberOfFish, 290, 15);
 
       ctx.font = '15px "Press Start 2P"';
 
@@ -930,10 +994,38 @@ class SceneManager {
           32,
           32
         );
-        
+        this.game.ctx.fillStyle = "Black";
         ctx.font = '8px "Press Start 2P"';
         this.game.ctx.fillText(6 - this.character.counterForShuriken, 290 + 41, 15);
+        this.game.ctx.fillText(this.character.numberOfFish, 290, 15);
+        
+        if (this.character.guide && (!this.character.shadow || !this.character.shadow)  )
+        this.game.ctx.drawImage(
+          this.spritesheetFarmLand,
+          0,
+          1210,
+          32,
+          32,
+          290 + 40 + 40,
+          5,
+          32,
+          32
+        );
+      else
+        this.game.ctx.drawImage(
+          this.spritesheetFarmLand,
+          0,
+          1210+32,
+          32,
+          32,
+          290 + 40 + 40,
+          5,
+          32,
+          32
+        );
 
+
+  
         }
         
  
@@ -950,15 +1042,19 @@ class SceneManager {
   }
 
   update() {
-    // console.log("Death " +this.character.countDeath);
-    // if(this.character.countDeath==2){
-    //   this.game.entities.forEach((entity) =>{  
-    //    entity.removeFromWorld = true;
-    //   });
+//  if(this.character.y<2200){
+//   ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
 
-    
-    //   this.loadMap()
-    // }
+//   console.log(" IT IS TRUE")
+//  }
+
+//  if(this.character.y>2200){
+//   ASSET_MANAGER.playMusic("./music/bossmusic.mp3");
+
+//   console.log(" IT IS TRUE")
+//  }
+
+
 
   this.updateAudio();
     
@@ -966,30 +1062,36 @@ class SceneManager {
     if (this.startCounting) this.elapsed += this.game.clockTick;
     let midpointX = PARAMS.CANVAS_WIDTH / 2;
     let midpointY = PARAMS.CANVAS_HEIGHT / 2;
+    
     if (this.game.testSleepCutScene ) {
       
+        // this.game.addEntity(new NextDayCutScene(this.game));
+        // this.startCounting = true;
+        // this.elapsed = 0;
+        //this.character.hitpoints = this.character.maxhitpoints;
+      if((this.character.BB.collide(this.bed.BB) ) && (this.dayNightManager.time >= 12 || this.dayNightManager.time <= 4 )){
         this.game.addEntity(new NextDayCutScene(this.game));
         this.startCounting = true;
+        this.notInCutScreen = false;
         this.elapsed = 0;
-        this.character.hitpoints = this.character.maxhitpoints;
-      // if(Math.abs(this.character.x-600-this.game.camera.x) < 50 && Math.abs(this.character.y - 700 -this.game.camera.x) < 50 && this.dayNightManager.time >= 12){
-      //   this.game.addEntity(new NextDayCutScene(this.game));
-      //   this.startCounting = true;
-      //   this.elapsed = 0;
-      // }else if(this.dayNightManager.time < 16){
-      //   console.log("Can not sleep, its too early!");
-      //   this.game.addEntity( new MessageNotification(this.game, PARAMS.CANVAS_WIDTH/2 - 200 , PARAMS.CANVAS_HEIGHT/3,"Can not sleep, its too early!"));
-      // } else if(this.dayNightManager.time >= 16){
-      //   this.game.addEntity( new MessageNotification(this.game, PARAMS.CANVAS_WIDTH/2 - 200 , PARAMS.CANVAS_HEIGHT/3,"You are not home!"));
+        this.inGame = false;
+      }else if(this.dayNightManager.time < 12){
+      //  console.log("Can not sleep, its too early!");
+        this.game.addEntity( new MessageNotification(this.game, PARAMS.CANVAS_WIDTH/2 - 200 , PARAMS.CANVAS_HEIGHT/3,"Can not sleep, its too early!"));
+      }
 
-      // }
+
       
-    }
+    }// 550, 565, 320, 120
+    if((this.character.BB.collide(this.bed.BB) ) && (this.dayNightManager.time >= 12 || this.dayNightManager.time <= 4 ))
+      this.game.addEntityAtIndex(300,new MessageInteract(this.game, PARAMS.CANVAS_WIDTH*0.9, PARAMS.CANVAS_HEIGHT*0.9, "Press I to Sleep."));
     if (this.elapsed > 3.5) {
-      this.dayNightManager.time = 6;
-      this.loadSlime();
+      this.inGame = true;
+      if(!(this.dayNightManager.time >= 0 && this.dayNightManager.time <= 4 )) ++PARAMS.DAYCOUNTER;
       
-      if (this.listofNormallBosses[0].removeFromWorld) {
+      this.dayNightManager.time = 9;
+      if(PARAMS.DAYCOUNTER >= 3 ) this.loadSlime();
+      if (this.listofNormallBosses.length > 0 && this.listofNormallBosses[0].removeFromWorld) {
         this.listofNormallBosses.shift();
         if (this.listofNormallBosses.length > 0)
           this.game.addEntityAtIndex(
@@ -997,16 +1099,29 @@ class SceneManager {
             this.listofNormallBosses[0]
           );
       }
-      ++PARAMS.DAYCOUNTER;
+
+      if(this.listOfQuests.length > 0 && this.listOfQuests[0].removeFromWorld){
+        this.listOfQuests.shift();
+        if( this.listOfQuests.length > 0 ){
+          this.game.addEntityAtIndex(
+            this.game.entities.length-5,
+            this.listOfQuests[0]
+          );
+          if(  this.listOfQuests[0] instanceof MantisKill) this.loadMantis();
+        }
+      }
+
+      
       this.elapsed = 0;
       this.startCounting = false;
       this.listOfTrippleSoil.forEach((each)=>{
         each.generateListOfBugs();
-        console.log(each);
+      //  console.log(each);
       })
 
+      this.notInCutScreen = true;
 
-      console.log("loaded slime");
+    //  console.log("loaded slime");
     }
 
     if (
@@ -1024,16 +1139,22 @@ class SceneManager {
     }
                  //adj character camera bottom to top
     else if( (this.character.y > 2400 + 1350) && 2200 < this.character.y - midpointY ){
-      console.log(this.character.y + midpointY);
+     // console.log(this.character.y + midpointY);
       this.y = Math.floor(this.character.y - midpointY);
     }
+  
+
+    //console.log("DEATH " + this.game.camera.countDeath)
+    // if(this.game.camera.countDeath==3){
+    //   ASSET_MANAGER.pauseBackgroundMusic()
+      
+   
+           
+    //        }
     this.onetime = this.character.oneTime;
     this.endgame = this.character.endgame;
-
     this.game.entities.forEach((entity) =>{  
-      if(entity instanceof MainCharacter){
-     
-      }
+      
 
 
 

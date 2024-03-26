@@ -21,10 +21,10 @@ class Slime{
         
         //healthbar information
         this.healthbar= new HealthBar(this, this.game);
-        this.hitpoints = 100;
-        this.maxhitpoints = 100;
+        this.hitpoints = 250;
+        this.maxhitpoints = 250;
        // this.game.slime = this;
-        this.speed = 0.5;
+        this.speed = 1;
         // spritesheet
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/slime.png");
 
@@ -143,7 +143,8 @@ class Slime{
                 }
             
                 
-            } 
+            }
+            
         }
 
       
@@ -153,9 +154,11 @@ class Slime{
         if (this.state == 0) {
             dist = distance(this, this.target);
             this.velocity = { x: (this.target.x - this.x) / dist * this.maxSpeed, y: (this.target.y - this.y) / dist * this.maxSpeed };
-           if(this.x + this.velocity.x * this.game.clockTick +  this.width/2 < 2000 && this.x + this.velocity.x * this.game.clockTick - this.width/2 > 0) this.x += this.velocity.x * this.game.clockTick;
-            this.y += this.velocity.y * this.game.clockTick;
-        }
+           
+            if(this.x + this.velocity.x * this.game.clockTick +  this.width/2 < 2000 && this.x + this.velocity.x * this.game.clockTick - this.width/2 > 0) 
+                this.x += this.velocity.x * this.game.clockTick;
+                this.y += this.velocity.y * this.game.clockTick;
+             }
         this.facing = this.getFacingForSlimeOnly(this.velocity);
         if (this.attackTarget && this.attackTarget instanceof HorizontalSoil) {
        
@@ -189,23 +192,28 @@ class Slime{
             if (collide(this, this.attackTarget)) {
             
                     this.state = 1;
-                    if (this.attackTarget && this.attackTarget instanceof MainCharacter  ){
+                    if (this.attackTarget && this.attackTarget instanceof MainCharacter || this.attackTarget && this.attackTarget instanceof CharacterClone ){
                         console.log("this");
                    
+                     
             
-                        if (this.elapsedTime > 0.8 ) {
+                        if (this.elapsedTime > 1 ) {
                             var damage = this.damageBase + randomInt(4);
                             this.attackTarget.hitpoints -= damage;
                             this.game.addEntity(new CharacterGetDamageScore(this.game, this.game.character.x - this.game.camera.x +  Math.floor(Math.random() * (31 - 20) + 20),   this.game.character.y - this.game.camera.y -  Math.floor(Math.random() * (31 - 20) + 20) , damage));
+                          
+                          if( this.attackTarget instanceof MainCharacter){
                             if( this.attackTarget.hitpoints<=0){
                                   //ent.removeFromWorld = true;
                                   //this.game.countDeath += 1;
                                   this.attackTarget.isDead();
                               }
+                            }
                               this.elapsedTime = 0;
 
                         }
                     }
+           
                 
             //     if (this.elapsedTime > 0.5) {
             //     //var damage = this.damageBase + randomInt(4);

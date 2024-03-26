@@ -13,7 +13,7 @@ class FarmLandGiantHouse {
         this.fenceSpritesheet = ASSET_MANAGER.getAsset("./sprites/farmland.png");
         this.fenceDoorSpritesheet = ASSET_MANAGER.getAsset("./sprites/farmland.png");
         this.containerSpritesheet = ASSET_MANAGER.getAsset("./sprites/farmland.png");
-
+        this.catSpritesheet = ASSET_MANAGER.getAsset("./sprites/cat.png");
 
         this.animations = null;
         this.loadAnimations();
@@ -29,8 +29,7 @@ class FarmLandGiantHouse {
         this.containerAnimations1 = new Animator(this.fenceDoorSpritesheet, 480, 680, 32, 56, 3, 0.35, 0, false, true);
         this.containerAnimations2 = new Animator(this.fenceDoorSpritesheet, 480, 680, 32, 56, 3, 0.35, 0, false, true);
         this.containerAnimations3 = new Animator(this.fenceDoorSpritesheet, 480, 680, 32, 56, 3, 0.35, 0, false, true);
-
-
+        this.catAnimations = new Animator(this.catSpritesheet, 2, 0, 135, 128, 3, 0.55, 0, false, true);
     };
 
     update() {
@@ -238,6 +237,11 @@ class FarmLandGiantHouse {
             this.x - this.game.camera.x + 274,
             this.y - this.game.camera.y + 380,
             1);
+        this.catAnimations.drawFrame(this.game.clockTick,
+            ctx,
+            this.x - this.game.camera.x + 10,
+            this.y - this.game.camera.y + 200,
+            0.3);
     }
 
 }

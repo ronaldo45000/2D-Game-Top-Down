@@ -110,7 +110,7 @@ class Dog {
         this.monsterMode = 1.5;
         this.elapsedTimeMonster = 20;
         this.game.character.numberOfFish -= 1;
-        this.damageBase *= this.monsterMode;
+        this.damageBase = 20;
         this.maxSpeed *= this.monsterMode;
     }
 
@@ -135,12 +135,14 @@ class Dog {
 
 
     for (var i = 0; i < this.game.entities.length; i++) {
-        var ent = this.game.entities[i];
+        var entity = this.game.entities[i];
 
-        if (ent instanceof Slime && canSee(this, ent) || ent instanceof Boar && canSee(this, ent)
-                || ent instanceof GreenGoblin && canSee(this, ent)) {
-            this.target = ent;
-            this.attackTarget = ent;
+        if ((entity instanceof Slime || entity instanceof Boar || entity instanceof GreenGoblin ||entity instanceof BoarSkill|| 
+            entity instanceof Wizard|| entity instanceof Wizard2|| entity instanceof Skele || entity instanceof Guardian ||
+            entity instanceof Skeleton || entity instanceof DemonSlime || entity instanceof Mantis)  && canSee(this, entity)
+                || ent instanceof GreenGoblin && canSee(this, entity)) {
+            this.target = entity;
+            this.attackTarget = entity;
             if(this.state === 2) this.state = 3;
             
         }
@@ -181,8 +183,12 @@ class Dog {
             }
 
             if (this.elapsedTime > 0.5) {
-                var damage = this.damageBase + randomInt(4);
+
+
+                var damage = Math.floor(this.game.character.baseDamage/4 + randomInt(4)) ;
+
                 this.attackTarget.hitpoints -= damage;
+
                 this.game.addEntity(new Score(this.game, this.attackTarget.x - this.game.camera.x, this.attackTarget.y - this.game.camera.y, damage));
                 this.elapsedTime = 0;
 

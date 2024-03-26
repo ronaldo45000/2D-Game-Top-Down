@@ -30,10 +30,13 @@ ASSET_MANAGER.queueDownload("./sprites/house.png");
 ASSET_MANAGER.queueDownload("./sprites/enemyhouse.png");
 ASSET_MANAGER.queueDownload("./sprites/plantkiller.png");
 ASSET_MANAGER.queueDownload("./sprites/boarSkill.png");
+ASSET_MANAGER.queueDownload("./sprites/mantis.png");
 
  
 ASSET_MANAGER.queueDownload("./sprites/wolfsheet1.png");
 ASSET_MANAGER.queueDownload("./sprites/towers.png");
+ASSET_MANAGER.queueDownload("./sprites/cat.png");
+
 
 ASSET_MANAGER.queueDownload("./sprites/shuriken.png");
 ASSET_MANAGER.queueDownload("./sprites/endportal.png");
@@ -42,11 +45,13 @@ ASSET_MANAGER.queueDownload("./sprites/bossmap.png")
 ASSET_MANAGER.queueDownload("./sprites/skeleton.png")
 ASSET_MANAGER.queueDownload("./sprites/demonslime.png")
 ASSET_MANAGER.queueDownload("./sprites/slash.png")
-ASSET_MANAGER.queueDownload("./music/chill.mp3");
 
 ASSET_MANAGER.queueDownload("./sprites/fishing.png");
 ASSET_MANAGER.queueDownload("./sprites/Bee_Idle.png");
 ASSET_MANAGER.queueDownload("./sprites/Bee_Walk.png");
+ASSET_MANAGER.queueDownload("./sprites/ghost2.png");
+ASSET_MANAGER.queueDownload("./sprites/mark.png");
+ASSET_MANAGER.queueDownload("./sprites/lightning.png");
 
 ASSET_MANAGER.queueDownload("./sprites/enemy/skeletondownattack.png");
  ASSET_MANAGER.queueDownload("./sprites/enemy/skeletonhitright.png");
@@ -64,13 +69,17 @@ ASSET_MANAGER.queueDownload("./sprites/turretshadow.png");
 ASSET_MANAGER.queueDownload("./sprites/guardian.png");
 ASSET_MANAGER.queueDownload("./sprites/props.png");
 
-
-//audio
-ASSET_MANAGER.queueDownload("./audio/slsh2.mp3");
-ASSET_MANAGER.queueDownload("./audio/walk1.mp3");
 //music
+ASSET_MANAGER.queueDownload("./music/CornfieldChaseShort.mp3");
 ASSET_MANAGER.queueDownload("./music/bossmusic.mp3");
-ASSET_MANAGER.queueDownload("./music/adventure.mp3");
+ASSET_MANAGER.queueDownload("./music/snmusic.mp3");
+//audio
+ASSET_MANAGER.queueDownload("./audio/walk1.mp3");
+ASSET_MANAGER.queueDownload("./audio/slsh2.mp3");
+ASSET_MANAGER.queueDownload("./audio/dash.mp3");
+ASSET_MANAGER.queueDownload("./audio/cat-meow.mp3");
+
+ 
 
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
@@ -89,7 +98,9 @@ ASSET_MANAGER.downloadAll(() => {
 	PARAMS.CANVAS_HEIGHT = canvas.height;
 	
 	gameEngine.init(ctx);
-	ASSET_MANAGER.autoRepeat("./music/chill.mp3");
+	ASSET_MANAGER.autoRepeat("./music/CornfieldChaseShort.mp3");
+	ASSET_MANAGER.autoRepeat("./music/bossmusic.mp3");
+	ASSET_MANAGER.autoRepeat("./music/snmusic.mp3");
 
 	//gameEngine.addEntity(new SceneManager(gameEngine));
 	new SceneManager(gameEngine);

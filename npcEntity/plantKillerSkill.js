@@ -16,7 +16,7 @@ class PlantKiller{
        this.updateBB();
        this.elapsedTime = 0;
        this.elapsedTime1 = 0;
-       this.damageBase =  5;
+       this.damageBase =  50;
 
     }; 
     loadAnimation(){

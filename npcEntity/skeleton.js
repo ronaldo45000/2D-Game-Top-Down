@@ -6,8 +6,8 @@ class Skeleton {
       this.faceleft = false;
 
       this.healthbar= new HealthBar(this);
-      this.hitpoints = 100;
-      this.maxhitpoints = 100;
+      this.hitpoints = 900;
+      this.maxhitpoints = 900;
 
       this.visualRadius = 1400;
 
@@ -102,7 +102,7 @@ class Skeleton {
               this.removeFromWorld =true;
             }
           }
-          if (ent instanceof MainCharacter && canSee(this, ent)) {
+          if ((ent instanceof MainCharacter ||ent instanceof CharacterClone) && canSee(this, ent)) {
               this.target = ent;
               //character
 
@@ -117,7 +117,7 @@ class Skeleton {
            
             
           }
-          if (ent instanceof MainCharacter && collide(this, ent)) {
+          if ((ent instanceof MainCharacter||ent instanceof CharacterClone) && collide(this, ent)) {
            console.log("facelft " + this.faceleft)
             
         
@@ -125,6 +125,7 @@ class Skeleton {
 
                     
                   this.state = 1;
+
                   if (this.elapsedTime > 0.9) {
                       var damage = 7 + randomInt(4);
                       ent.hitpoints -= damage;
@@ -133,7 +134,15 @@ class Skeleton {
                       // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
                       this.elapsedTime = 0;
                   }
-           
+            
+                  if(ent instanceof MainCharacter){
+                    if( ent.hitpoints<=0){
+             
+                        ent.isDead();
+                        this.state =0;
+                     }
+                    }
+                  
              if(this.state ===3){
               this.state = 1;
               this.elapsedTime = 0;

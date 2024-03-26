@@ -46,7 +46,7 @@ class Slash {
 
          for (var i = 0; i < this.game.entities.length; i++) {
              var ent = this.game.entities[i];
-            if ( (ent instanceof MainCharacter || ent instanceof MainCharacter) && collide(this, ent)) {
+            if ( (ent instanceof MainCharacter || ent instanceof CharacterClone || ent instanceof Dog) && collide(this, ent)) {
                 var damage = 10 + randomInt(6);
                 ent.hitpoints -= damage;
         //         // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));

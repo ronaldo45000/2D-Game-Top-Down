@@ -55,7 +55,7 @@ class DayNightCycle {
  
         ctx.globalAlpha = 1; // Reset global alpha
         ctx.fillStyle = 'white';
-        ctx.fillText(this.formatTime(), PARAMS.CANVAS_WIDTH - 100, 20);
+        ctx.fillText(this.formatTime(), PARAMS.CANVAS_WIDTH*0.9, 20);
     }
     formatTime() {
         // Format time in 12-hour AM/PM format

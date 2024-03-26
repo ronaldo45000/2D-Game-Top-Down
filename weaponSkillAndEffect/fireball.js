@@ -41,13 +41,18 @@ class FireBall {
 
         for (var i = 0; i < this.game.entities.length; i++) {
             var ent = this.game.entities[i];
-            if ( (ent instanceof MainCharacter || ent instanceof MainCharacter) && collide(this, ent)) {
+            if ( (ent instanceof MainCharacter || ent instanceof CharacterClone) && collide(this, ent)) {
                 var damage = 10 + randomInt(6);
                 ent.hitpoints -= damage;
+                if(ent instanceof MainCharacter){
                 if( ent.hitpoints<=0){
                  
                     ent.isDead();
                  }
+                }
+                if(ent.hitpoints<=0){
+                    ent.removeFromWorld = true;
+                }
                 // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
          this.removeFromWorld = true;
             }

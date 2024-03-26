@@ -6,6 +6,7 @@ class FarmLandHouse {
         this.height = 135;
         this.width = 135;
         this.spritesheet = ASSET_MANAGER.getAsset("./sprites/farmland.png");
+        this.catSpritesheet = ASSET_MANAGER.getAsset("./sprites/cat.png");
 
         this.speed = 0.5;
         this.animations = null;
@@ -17,7 +18,7 @@ class FarmLandHouse {
         this.doorAnimations = new Animator(this.spritesheet, 482, 64, 90, 70, 4, 0.25, 0, false, true);
         this.animationschicken = new Animator(this.spritesheet, 260, 898, 30, 30, 3, 0.3, 0, false, true);
         this.fenceDoorAnimations = new Animator(this.spritesheet, 481, 193, 63, 31, 3, 0.35, 0, false, true);
-
+        this.catAnimations = new Animator(this.catSpritesheet, 2, 0, 137, 125, 3, 0.75, 0, false, true)
 
     };
 
@@ -171,6 +172,16 @@ class FarmLandHouse {
             this.x - this.game.camera.x + 222,
             this.y - this.game.camera.y + 370,
             1);
+        this.catAnimations.drawFrame(this.game.clockTick,
+            ctx,
+            this.x - this.game.camera.x + 70,
+            this.y - this.game.camera.y + 130,
+            0.3);
+        this.catAnimations.drawFrame(this.game.clockTick,
+            ctx,
+            this.x - this.game.camera.x + 230,
+            this.y - this.game.camera.y + 130,
+            0.3);
     }
 
 }

@@ -112,7 +112,7 @@ class Boar {
         for (var i = 0; i < this.game.entities.length; i++) {
             var ent = this.game.entities[i];
 
-            if (ent instanceof MainCharacter && canSee(this, ent) || ent instanceof Dog && canSee(this, ent)) {
+            if (ent instanceof CharacterClone && canSee(this,  ent)||ent instanceof MainCharacter && canSee(this, ent) || ent instanceof Dog && canSee(this, ent)) {
                 this.target = ent;
                 this.attackTarget = ent;
 
@@ -132,7 +132,7 @@ class Boar {
                 
             // }
             //size of FarmLandBigTree: 99,127
-            if (ent instanceof Dog && collide(this,  ent)|| ent instanceof MainCharacter  && collide(this,  ent)) {
+            if (ent instanceof CharacterClone && collide(this,  ent)|| ent instanceof Dog && collide(this,  ent)|| ent instanceof MainCharacter  && collide(this,  ent)) {
                 if (this.state === 0) {
                     this.state = 1;
                     this.elapsedTime = 0;
@@ -145,6 +145,7 @@ class Boar {
                    ent.hitpoints -= damage;
                    this.game.addEntity(new CharacterGetDamageScore(this.game, ent.x - this.game.camera.x +  Math.floor(Math.random() * (31 - 20) + 20),   ent.y - this.game.camera.y -  Math.floor(Math.random() * (31 - 20) + 20) , damage));
                      this.elapsedTime = 0;
+                     if(ent instanceof MainCharacter ||ent instanceof Dog)
                      if( ent.hitpoints<=0){
                         //ent.removeFromWorld = true;
                         this.game.countDeath += 1;

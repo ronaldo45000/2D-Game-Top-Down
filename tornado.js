@@ -43,10 +43,15 @@ class Tornado {
 
         for (var i = 0; i < this.game.entities.length; i++) {
             var ent = this.game.entities[i];
-            if ( (ent instanceof MainCharacter || ent instanceof MainCharacter) && collide(this, ent)) {
-                var damage = 10 + randomInt(6);
+            if ( (ent instanceof MainCharacter || ent instanceof CharacterClone) && collide(this, ent)) {
+                var damage = 1 + randomInt(1);
                 ent.hitpoints -= damage;
                 // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
+                if(ent instanceof MainCharacter){
+                if(ent.hitpoints<=0){
+                    ent.isDead();
+                }
+            }
    this.removeFromWorld = true;
             }
             // if (!this.towerTeam && ent instanceof Tower && collide(this, ent)) {

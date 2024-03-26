@@ -6,8 +6,8 @@ class Skele {
         this.faceleft = false;
 
         this.healthbar= new HealthBar(this);
-        this.hitpoints = 5100;
-        this.maxhitpoints = 5100;
+        this.hitpoints = 850;
+        this.maxhitpoints = 850;
 
         this.visualRadius = 400;
         this.chase = true;
@@ -148,7 +148,15 @@ this.updateBB()
         this.BB = new BoundingBox(this.x -40- this.game.camera.x, this.y -40- this.game.camera.y, 90,90);
       
       };
-     
+      isDead(){
+        setTimeout(()=> {
+        
+        
+            this.game.addEntity(new Skele(this.game,530, 2650, [{ x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: randomInt(800), y: randomInt(800) }, { x: 0, y: 0 }]));
+
+        }, 3000);
+    
+      }
     update() {
   //  this.x+=0.5;
   this.updateBB()
@@ -182,7 +190,7 @@ this.updateBB()
                 this.chase =false;
                }
 
-            if (ent instanceof MainCharacter && canSee(this, ent)) {
+            if ((ent instanceof MainCharacter||ent instanceof CharacterClone)&& canSee(this, ent)) {
                 this.chase = true;
                 this.target = ent;
                 //character
@@ -246,7 +254,7 @@ this.updateBB()
              
 
             }
-            if (ent instanceof MainCharacter && collide(this, ent) ) {
+            if ((ent instanceof MainCharacter||ent instanceof CharacterClone) && collide(this, ent) ) {
       //       console.log("facelft " + this.faceleft)
               
          
@@ -309,13 +317,14 @@ this.updateBB()
                         // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
                         this.elapsedTime = 0;
                     }
+                    if(ent instanceof MainCharacter){
                     if(ent.hitpoints<=0){
                       
                  
                         ent.isDead();
                       
                      
-                     }
+                     }}
              
                 
         

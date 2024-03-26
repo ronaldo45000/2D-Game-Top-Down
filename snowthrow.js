@@ -59,9 +59,12 @@ class SnowThrow {
         for (var i = 0; i < this.game.entities.length; i++) {
             var ent = this.game.entities[i];
             if ( (ent instanceof MainCharacter || ent instanceof MainCharacter) && collide(this, ent)) {
-                var damage = 10 + randomInt(6);
+                var damage = 1 + randomInt(2);
                ent.hitpoints -= damage;
                 // this.game.addEntity(new Score(this.game, ent.x, ent.y, damage));
+                if(ent.hitpoints<=0){
+                    ent.isDead();
+                }
          this.removeFromWorld = true;
             }
         //     // if (!this.towerTeam && ent instanceof Tower && collide(this, ent)) {
